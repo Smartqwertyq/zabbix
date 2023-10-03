@@ -1,0 +1,21 @@
+Put folder 'hp_msa/*' to:
+/usr/lib/zabbix/externalscripts/hp_msa/
+
+in file:
+/usr/lib/zabbix/externalscripts/hp_msa/msascript/msa.sh
+enter user name, password, ip adress of controllers
+
+run as root:
+/usr/lib/zabbix/externalscripts/hp_msa/msascript/msa.sh >/usr/lib/zabbix/externalscripts/hp_msa/msalog/msa_temp.log
+
+check if log files not empty:
+/usr/lib/zabbix/externalscripts/hp_msa/msalog
+
+run as root:
+chown root:sysadmin /usr/lib/zabbix/externalscripts/hp_msa/msalog/*
+chmod 640 /usr/lib/zabbix/externalscripts/hp_msa/msalog/*
+
+add to crontab -e:
+*/5 * * * * sudo /usr/lib/zabbix/externalscripts/hp_msa/msascript/msa.sh >/usr/lib/zabbix/externalscripts/hp_msa/msalog/msa_temp.log 2>&1
+
+import template, add template to agent (active) server, where script is running (in my case script is running on zabbix-server itself)

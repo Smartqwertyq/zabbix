@@ -1,0 +1,342 @@
+zabbix_export:
+  version: '6.4'
+  template_groups:
+    -
+      uuid: 026df39f692e4dfcaa4cc2154beca49c
+      name: OAC_templates
+  templates:
+    -
+      uuid: 35983ec44f594b6caf05a714eae0cbd0
+      template: 'HP MSA P2000 g3 SSH'
+      name: 'HP MSA P2000 g3 SSH'
+      groups:
+        -
+          name: OAC_templates
+      items:
+        -
+          uuid: 9fa7fcf7cb584e7ca8c9e03afb806e23
+          name: 'MSA Controllers'
+          type: ZABBIX_ACTIVE
+          key: 'log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msacontr.log,,,,skip]'
+          delay: 5m
+          trends: '0'
+          value_type: LOG
+          description: 'Down|Not Installed|Unknown|Fault'
+          triggers:
+            -
+              uuid: 596cad1bcac54877be1b9371bf11ced4
+              expression: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msacontr.log,,,,skip],1200,"like","Down")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msacontr.log,,,,skip],1200,"like","Not Installed")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msacontr.log,,,,skip],1200,"like","Unknown")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msacontr.log,,,,skip],1200,"like","Fault")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msacontr.log,,,,skip],1200,"like","Error")=1
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msacontr.log,,,,skip],1200,"like","Down")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msacontr.log,,,,skip],1200,"like","Not Installed")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msacontr.log,,,,skip],1200,"like","Unknown")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msacontr.log,,,,skip],1200,"like","Fault")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msacontr.log,,,,skip],1200,"like","Error")=0
+              name: 'MSA Controller problem'
+              priority: HIGH
+              manual_close: 'YES'
+            -
+              uuid: 068a9cb4909a45a0a1336c339897c560
+              expression: 'nodata(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msacontr.log,,,,skip],1200)=1'
+              name: 'MSA Controllers no data'
+              priority: AVERAGE
+              manual_close: 'YES'
+        -
+          uuid: ebc41560ebc645619c054019991c6d87
+          name: 'MSA Event log'
+          type: ZABBIX_ACTIVE
+          key: 'log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msaevents.log,,,,skip]'
+          delay: 5m
+          trends: '0'
+          value_type: LOG
+        -
+          uuid: 5777670802b949ccbcaca34a102b604d
+          name: 'MSA FAN'
+          type: ZABBIX_ACTIVE
+          key: 'log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msafan.log,,,,skip]'
+          delay: 5m
+          trends: '0'
+          value_type: LOG
+          description: Degraded|Fault|Unknown
+          triggers:
+            -
+              uuid: b53ef395a7754e10b9610ac8b53f8b2e
+              expression: 'nodata(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msafan.log,,,,skip],1200)=1'
+              name: 'MSA FAN no data'
+              priority: AVERAGE
+              manual_close: 'YES'
+            -
+              uuid: c79eb43f91a5435d88fffeb56c2eac2b
+              expression: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msafan.log,,,,skip],1200,"like","Degraded")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msafan.log,,,,skip],1200,"like","Fault")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msafan.log,,,,skip],1200,"like","Unknown")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msafan.log,,,,skip],1200,"like","Error")=1
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msafan.log,,,,skip],1200,"like","Degraded")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msafan.log,,,,skip],1200,"like","Fault")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msafan.log,,,,skip],1200,"like","Unknown")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msafan.log,,,,skip],1200,"like","Error")=0
+              name: 'MSA Fan problem'
+              priority: HIGH
+              manual_close: 'YES'
+        -
+          uuid: e7121dd28c4b46d18a445f474825cb37
+          name: 'MSA HDD'
+          type: ZABBIX_ACTIVE
+          key: 'log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msahdd.log,,,,skip]'
+          delay: 5m
+          trends: '0'
+          value_type: LOG
+          description: ERROR|DEGRADED|FAULT|N/A|Unknown
+          triggers:
+            -
+              uuid: c148e0f87a7841a18eafd2dbfbd25071
+              expression: 'nodata(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msahdd.log,,,,skip],1200)=1'
+              name: 'MSA HDD no data'
+              priority: AVERAGE
+              manual_close: 'YES'
+            -
+              uuid: 0368821ef8444bd4af1ee0cf099c1c0d
+              expression: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msahdd.log,,,,skip],1200,"like","Fault")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msahdd.log,,,,skip],1200,"like","Degraded")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msahdd.log,,,,skip],1200,"like","Unknown")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msahdd.log,,,,skip],1200,"like","N/A")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msahdd.log,,,,skip],1200,"like","FAILED")=1
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msahdd.log,,,,skip],1200,"like","Fault")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msahdd.log,,,,skip],1200,"like","Degraded")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msahdd.log,,,,skip],1200,"like","Unknown")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msahdd.log,,,,skip],1200,"like","N/A")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msahdd.log,,,,skip],1200,"like","FAILED")=0
+              name: 'MSA HDD Problem'
+              priority: HIGH
+              description: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msahdd.log,,,,all],600,"like","Fault")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msahdd.log,,,,all],600,"like","Degraded")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msahdd.log,,,,all],600,"like","Unknown")=0
+              manual_close: 'YES'
+        -
+          uuid: 705dfdbae45d417b8b76e1cec1b3a1f1
+          name: 'MSA Ports'
+          type: ZABBIX_ACTIVE
+          key: 'log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msaport.log,,,,skip]'
+          delay: 5m
+          trends: '0'
+          value_type: LOG
+          description: Ok|Degraded|Fault|N/A
+          triggers:
+            -
+              uuid: 43ee169237f942f2b9667bfbcfc85b96
+              expression: 'nodata(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msaport.log,,,,skip],1200)=1'
+              name: 'MSA Ports no data'
+              priority: AVERAGE
+              manual_close: 'YES'
+            -
+              uuid: 89adaff02f0f4e14a48cf8664017bfbb
+              expression: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msaport.log,,,,skip],1200,"like","Degraded")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msaport.log,,,,skip],1200,"like","Fault")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msaport.log,,,,skip],1200,"like","N/A")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msaport.log,,,,skip],1200,"like","Error")=1
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msaport.log,,,,skip],1200,"like","Degraded")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msaport.log,,,,skip],1200,"like","Fault")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msaport.log,,,,skip],1200,"like","N/A")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msaport.log,,,,skip],1200,"like","Error")=0
+              name: 'MSA Ports problem'
+              priority: HIGH
+              manual_close: 'YES'
+        -
+          uuid: 9533cd7177aa47699484b990dbcafdbf
+          name: 'MSA PSU'
+          type: ZABBIX_ACTIVE
+          key: 'log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msapsu.log,,,,skip]'
+          delay: 5m
+          trends: '0'
+          value_type: LOG
+          description: OK|Degraded|Fault|Unknown
+          triggers:
+            -
+              uuid: a03cdd2b72044f8f81915f69d0790bdb
+              expression: 'nodata(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msapsu.log,,,,skip],1200)=1'
+              name: 'MSA PSU no data'
+              priority: AVERAGE
+              manual_close: 'YES'
+            -
+              uuid: b5feb941217e47e6b7afc9468f94dc0b
+              expression: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msapsu.log,,,,skip],1200,"like","Degraded")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msapsu.log,,,,skip],1200,"like","Fault")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msapsu.log,,,,skip],1200,"like","Unknown")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msapsu.log,,,,skip],1200,"like","Error")=1
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msapsu.log,,,,skip],1200,"like","Degraded")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msapsu.log,,,,skip],1200,"like","Fault")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msapsu.log,,,,skip],1200,"like","Unknown")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msapsu.log,,,,skip],1200,"like","Error")=0
+              name: 'MSA PSU problem'
+              priority: HIGH
+              manual_close: 'YES'
+        -
+          uuid: 75c81b093ebf449dbb80bbf2fe1c1052
+          name: 'MSA Temperature'
+          type: ZABBIX_ACTIVE
+          key: 'log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msatemperature.log,,,,skip]'
+          delay: 5m
+          trends: '0'
+          value_type: LOG
+          description: OK|Degraded|Fault|Unknown
+          triggers:
+            -
+              uuid: a913a24e0fb147e9a7bdb78a4ea6e581
+              expression: 'nodata(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msatemperature.log,,,,skip],1200)=1'
+              name: 'MSA Temperature no data'
+              priority: AVERAGE
+              manual_close: 'YES'
+            -
+              uuid: e3fe76dd9b8f40838c6e6a25ad32c593
+              expression: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msatemperature.log,,,,skip],1200,"like","Degraded")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msatemperature.log,,,,skip],1200,"like","Fault")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msatemperature.log,,,,skip],1200,"like","Unknown")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msatemperature.log,,,,skip],1200,"like","Error")=1
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msatemperature.log,,,,skip],1200,"like","Degraded")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msatemperature.log,,,,skip],1200,"like","Fault")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msatemperature.log,,,,skip],1200,"like","Unknown")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msatemperature.log,,,,skip],1200,"like","Error")=0
+              name: 'MSA Temperature problem'
+              priority: HIGH
+              manual_close: 'YES'
+        -
+          uuid: bdc3150ee5e2402e88aad4f66d6f1f44
+          name: 'MSA VDISK'
+          type: ZABBIX_ACTIVE
+          key: 'log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip]'
+          delay: 5m
+          trends: '0'
+          value_type: LOG
+          description: CRIT|FTDN|OFFL|QTCR|QTDN|QTOF|STOP|UNKN|OK|DEGRADED|FAULT|Unknown
+          triggers:
+            -
+              uuid: fb27978e06cb4a5e953164c01805cc4a
+              expression: 'nodata(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200)=1'
+              name: 'MSA VDISK no data'
+              priority: AVERAGE
+              manual_close: 'YES'
+            -
+              uuid: f036a220a2e242f6b66ff4baf3dded49
+              expression: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","CRIT")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","FTDN")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","OFFL")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","QTCR")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","QTDN")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","QTOF")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","STOP")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","UNKN")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","Degraded")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","Fault")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","Unknown")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","Error")=1
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","CRIT")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","FTDN")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","OFFL")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","QTCR")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","QTDN")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","QTOF")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","STOP")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","UNKN")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","Degraded")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","Fault")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","Unknown")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavdisk.log,,,,skip],1200,"like","Error")=0
+              name: 'MSA Vdisk problem'
+              priority: HIGH
+              manual_close: 'YES'
+        -
+          uuid: 853d3c8bcccf42e6bdebc7218da95166
+          name: 'MSA Volumes'
+          type: ZABBIX_ACTIVE
+          key: 'log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavol.log,,,,skip]'
+          delay: 5m
+          trends: '0'
+          value_type: LOG
+          description: DEGRADED|FAULT|Unknown
+          triggers:
+            -
+              uuid: d25b79d384b649b1b576e1f002f0f026
+              expression: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavol.log,,,,skip],1200,"like","Degraded|Fault|Unknown")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavol.log,,,,skip],1200,"like","Fault")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavol.log,,,,skip],1200,"like","Unknown")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavol.log,,,,skip],1200,"like","Error")=1
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavol.log,,,,skip],1200,"like","Degraded|Fault|Unknown")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavol.log,,,,skip],1200,"like","Fault")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavol.log,,,,skip],1200,"like","Unknown")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavol.log,,,,skip],1200,"like","Error")=0
+              name: 'MSA Volume problem'
+              priority: HIGH
+              manual_close: 'YES'
+            -
+              uuid: dac9c82aab144b82ae388528fa766843
+              expression: 'nodata(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavol.log,,,,skip],1200)=1'
+              name: 'MSA Volumes no data'
+              priority: AVERAGE
+              manual_close: 'YES'
+        -
+          uuid: 7b61a4f83bce43f384a13c81484b3803
+          name: 'MSA Voltage'
+          type: ZABBIX_ACTIVE
+          key: 'log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavolt.log,,,,skip]'
+          delay: 5m
+          trends: '0'
+          value_type: LOG
+          description: OK|DEGRADED|FAULT|Unknown
+          triggers:
+            -
+              uuid: f3cc10c2176e4a13be8bec4a9cd77bf3
+              expression: 'nodata(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavolt.log,,,,skip],1200)=1'
+              name: 'MSA Voltage no data'
+              priority: AVERAGE
+              manual_close: 'YES'
+            -
+              uuid: b2175c340ef640cb96a594f4bbbe2553
+              expression: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavolt.log,,,,skip],1200,"like","Degraded")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavolt.log,,,,skip],1200,"like","Fault")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavolt.log,,,,skip],1200,"like","Unknown")=1
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavolt.log,,,,skip],1200,"like","Error")=1
+              recovery_mode: RECOVERY_EXPRESSION
+              recovery_expression: |
+                find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavolt.log,,,,skip],1200,"like","Degraded")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavolt.log,,,,skip],1200,"like","Fault")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavolt.log,,,,skip],1200,"like","Unknown")=0
+                or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msavolt.log,,,,skip],1200,"like","Error")=0
+              name: 'MSA Voltage problem'
+              priority: HIGH
+              manual_close: 'YES'
+      tags:
+        -
+          tag: class
+          value: storage
+        -
+          tag: target
+          value: msa-p2000
