@@ -53,7 +53,9 @@
                         "key": "log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/msaevents.log,,,,skip]",
                         "delay": "5m",
                         "trends": "0",
-                        "value_type": "LOG"
+                        "value_type": "LOG",
+                        "description": "yyyy-MM-dd hh:mm:ss",
+                        "logtimefmt": "yyyy-MM-dd hh:mm:ss"
                     },
                     {
                         "uuid": "5777670802b949ccbcaca34a102b604d",

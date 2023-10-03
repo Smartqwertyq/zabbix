@@ -55,6 +55,8 @@ zabbix_export:
           delay: 5m
           trends: '0'
           value_type: LOG
+          description: 'yyyy-MM-dd hh:mm:ss'
+          logtimefmt: 'yyyy-MM-dd hh:mm:ss'
         -
           uuid: 5777670802b949ccbcaca34a102b604d
           name: 'MSA FAN'

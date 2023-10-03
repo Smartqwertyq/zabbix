@@ -111,7 +111,7 @@ grep -a -P 'P2000'|
 sed {s/'Press any key to continue (Q to quit)//'} | #sed 's/OK/Fault/g'| #TEST
 tr -d '\b'|
 tr -s '  ' ' '|
-sed '1d' >>$logdir/msaevents.log
+sed '1d' >$logdir/msaevents.log
 
 cat /dev/null > $logdir/msa_temp.log
 

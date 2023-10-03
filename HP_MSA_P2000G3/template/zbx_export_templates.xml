@@ -62,6 +62,8 @@ or find(/HP MSA P2000 g3 SSH/log[/usr/lib/zabbix/externalscripts/hp_msa/msalog/m
                     <delay>5m</delay>
                     <trends>0</trends>
                     <value_type>LOG</value_type>
+                    <description>yyyy-MM-dd hh:mm:ss</description>
+                    <logtimefmt>yyyy-MM-dd hh:mm:ss</logtimefmt>
                 </item>
                 <item>
                     <uuid>5777670802b949ccbcaca34a102b604d</uuid>
